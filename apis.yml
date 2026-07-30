@@ -1,26 +1,130 @@
 aid: matik
 name: Matik
-description: Matik is a company surfaced as a portfolio company of a16z, menlo-ventures and added to the
-  API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  Matik is a data-driven content automation platform that generates personalized
+  presentations, documents, spreadsheets, reports, and emails directly from connected
+  data sources — BI tools, CRMs, data warehouses, spreadsheets, and REST APIs. Teams
+  in Sales, Customer Success, and Revenue Operations use templates with dynamic content,
+  conditional logic, and AI-generated narratives to produce on-brand content at scale
+  across Google Slides, PowerPoint, PDF, and email. Matik exposes a REST External API
+  (OAuth 2.0) covering templates, presentations, dynamic content, data sources, bulk
+  generation, analytics, webhooks, and AI query building, plus a beta MCP server for
+  agent-driven content generation.
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://cdn.prod.website-files.com/6169c25fc3b5f387dbc1b0ab/672c8fdcb72e6d3999cd7f45_Matik%20Logo%20On%20White%20Colored.png
 url: https://raw.githubusercontent.com/api-evangelist/matik/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - a16z
 - menlo-ventures
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profiled
+x-tier-reason: has-public-api
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-20'
 tags:
 - Company
-apis: []
+- Content Automation
+- Presentations
+- Documents
+- Data-Driven Content
+- Sales Enablement
+- Customer Success
+- Revenue Operations
+- AI
+- MCP
+apis:
+- name: Matik External API
+  description: >-
+    OAuth 2.0 REST API for automating content generation with Matik — manage templates,
+    generate presentations/documents/spreadsheets, run dynamic content queries against
+    connected data sources, manage data sources, bulk-generate, pull analytics, and
+    subscribe to webhooks. ~94 operations across 13 resource areas.
+  humanURL: https://developer.matik.io/
+  baseURL: https://app.matik.io/api/1.0/
+  tags:
+  - Content Automation
+  - Presentations
+  - Dynamic Content
+  properties:
+  - type: APIReference
+    url: https://developer.matik.io/docs/matik/matik-external-api
+  - type: Authentication
+    url: authentication/matik-authentication.yml
+common:
+- type: Website
+  url: https://matik.io
+- type: DeveloperPortal
+  url: https://developer.matik.io/
+- type: Documentation
+  url: https://developer.matik.io/docs/category/matik-api
+- type: APIReference
+  url: https://developer.matik.io/docs/matik/matik-external-api
+- type: GettingStarted
+  url: https://developer.matik.io/guides/quickstart
+- type: Support
+  url: https://help.matik.io
+- type: Blog
+  url: https://www.matik.io/blog
+- type: GitHubOrganization
+  url: https://github.com/matik-io
+- type: SignUp
+  url: https://www.matik.io/request-demo
+- type: Login
+  url: https://app.matik.io
+- type: TermsOfService
+  url: https://www.matik.io/terms
+- type: PrivacyPolicy
+  url: https://www.matik.io/privacy
+- type: StatusPage
+  url: https://status.matik.io
+- type: Security
+  url: https://www.matik.io/security
+- type: Compliance
+  url: https://www.matik.io/security
+- type: TrustCenter
+  url: security/matik-trust-center.yml
+- type: Authentication
+  url: authentication/matik-authentication.yml
+- type: OAuthScopes
+  url: scopes/matik-scopes.yml
+- type: MCPServer
+  url: mcp/matik-mcp.yml
+- type: Webhooks
+  url: asyncapi/matik-webhooks.yml
+- type: Lifecycle
+  url: lifecycle/matik-lifecycle.yml
+- type: Conventions
+  url: conventions/matik-conventions.yml
+- type: Conformance
+  url: conformance/matik-conformance.yml
+- type: DomainSecurity
+  url: security/matik-domain-security.yml
+- type: DataModel
+  url: data-model/matik-data-model.yml
+- type: LLMsTxt
+  url: llms/matik-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
-common:
-- type: Website
-  url: https://matik.io
+x-enrichment:
+  date: '2026-07-20'
+  status: enriched
+  artifacts_added: 15
+  pass: local-v1
