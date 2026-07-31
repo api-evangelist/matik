@@ -1,0 +1,50 @@
+generated: '2026-07-20'
+method: searched
+status: published            # beta, access via Technical Account Manager
+source: https://help.matik.io/hc/en-us/articles/48790661770267--BETA-Matik-MCP-Server
+server:
+  name: matik
+  transport: http            # remote/hosted MCP server (custom connector)
+  url: null                  # server URL provisioned per-account by a Matik TAM (not public)
+  beta: true
+  access: Contact your Matik Technical Account Manager for access and the server URL.
+auth:
+  type: oauth2
+  notes: >-
+    OAuth 2.0 with dynamic client registration (no pre-registered client required);
+    authorize once with a valid Matik account, tokens are stored encrypted server-side.
+clients:
+  - Claude (custom connector)
+  - ChatGPT (Developer Mode custom app, OAuth)
+tools:
+  # Template-based content generation
+  - name: get_all_templates
+    description: Retrieve all templates available on your Matik account (names + IDs).
+    inputs: []
+  - name: get_inputs_for_template
+    description: Retrieve the required input fields for a specific template.
+    inputs: [template_id, input_values_by_id]
+  - name: query_callback
+    description: Process data queries for inputs that depend on external data sources; polls until complete.
+    inputs: [query_callback_url]
+  - name: generate_content
+    description: Create a presentation, document, or spreadsheet from a template and input values; polls until done and returns a download URL.
+    inputs: [template_id, input_values_by_name]
+  # Dynamic content queries
+  - name: search_dynamic_content
+    description: Search for dynamic content items by keyword (paginated).
+    inputs: [search_term, page, per_page]
+  - name: get_dynamic_content_by_name
+    description: Retrieve a single dynamic content item by its exact name.
+    inputs: [dynamic_content_name]
+  - name: get_inputs_for_dynamic_content
+    description: Retrieve the required input fields for a specific dynamic content item.
+    inputs: [dynamic_content_id]
+  - name: run_dynamic_content
+    description: Run a dynamic content item's parameterized query against your data sources and return the results.
+    inputs: [dynamic_content_id, input_values]
+workflows:
+  - name: Template workflow
+    steps: [get_all_templates, get_inputs_for_template, query_callback, generate_content, download]
+  - name: Dynamic content workflow
+    steps: [search_dynamic_content, get_dynamic_content_by_name, get_inputs_for_dynamic_content, query_callback, run_dynamic_content]

@@ -1,0 +1,31 @@
+generated: '2026-07-20'
+method: searched
+source: https://developer.matik.io/docs/category/matik-api
+spec_type: Webhooks
+notes: >-
+  Matik publishes a Webhook Subscriptions resource in its REST API (developer.matik.io),
+  but does not publish an AsyncAPI document. This captures the webhook management
+  surface. Subscriptions carry a rotatable signing secret.
+management_api:
+  base_url: https://app.matik.io/api/1.0/
+  operations:
+    - method: POST
+      path: /webhook-subscriptions
+      summary: Create a webhook subscription (route).
+    - method: GET
+      path: /webhook-subscriptions
+      summary: List webhook subscriptions.
+    - method: GET
+      path: /webhook-subscriptions/{subscription_id}
+      summary: Get a webhook subscription.
+    - method: PUT
+      path: /webhook-subscriptions/{subscription_id}
+      summary: Update a webhook subscription.
+    - method: DELETE
+      path: /webhook-subscriptions/{subscription_id}
+      summary: Delete a webhook subscription.
+    - method: POST
+      path: /webhook-subscriptions/{subscription_id}/rotate-secret
+      summary: Rotate the subscription signing secret.
+signing:
+  secret: per-subscription, rotatable via the rotate-secret operation

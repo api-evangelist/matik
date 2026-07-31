@@ -1,0 +1,41 @@
+generated: '2026-07-20'
+method: searched
+source: https://developer.matik.io/guides/quickstart
+docs:
+  - https://developer.matik.io/guides/quickstart
+  - https://developer.matik.io/guides/oauth
+  - https://help.matik.io/hc/en-us/articles/48790661770267--BETA-Matik-MCP-Server
+authentication:
+  style: oauth2-bearer
+  header: 'Authorization: Bearer {access_token}'
+  see: authentication/matik-authentication.yml
+base_url: https://app.matik.io/api/1.0/
+content_type: application/json
+versioning:
+  style: uri-path
+  current: '1.0'
+async_operations:
+  style: poll
+  notes: >-
+    Long-running operations (presentation generation, refresh, AI query building,
+    analytics export, bulk presentations) are asynchronous. The create call returns
+    an id and a Location header pointing at a status URL; poll it — 200 means still
+    in progress, 303 means complete (Location carries the result URL).
+pagination:
+  style: page-number
+  params:
+    page: 0-indexed page number (default 0)
+    per_page: results per page, 1-100 (default 20)
+  source: https://help.matik.io/hc/en-us/articles/48790661770267--BETA-Matik-MCP-Server
+  notes: Observed on Dynamic Content search; applied across list endpoints.
+idempotency:
+  supported: false
+  notes: No idempotency-key contract is documented by Matik.
+webhooks:
+  supported: true
+  see: asyncapi/matik-webhooks.yml
+rate_limits:
+  documented: false
+error_envelope:
+  documented: false
+  notes: No public RFC 9457 / structured error-catalog reference was found.

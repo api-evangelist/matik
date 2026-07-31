@@ -1,0 +1,53 @@
+# llms.txt — Matik AI content map
+
+## Overview
+Matik is a platform that automates data-driven content such as presentations,
+documents, and spreadsheets for revenue teams including Customer Success,
+Sales, and Operations.
+
+## Primary pages
+Company homepage:
+https://www.matik.io/
+
+Product overview and capabilities:
+https://www.matik.io/how-it-works
+
+AI automation capabilities:
+https://www.matik.io/ai
+
+## Solutions by team
+Customer Success automation:
+https://www.matik.io/solutions-team/customer-success
+
+Digital Customer Success:
+https://www.matik.io/solutions-team/digital-cs
+
+Revenue Operations:
+https://www.matik.io/solutions-team/operations
+
+Analytics workflows:
+https://www.matik.io/solutions-team/analytics
+
+## Industry solutions
+SaaS use cases:
+https://www.matik.io/solutions-industry/saas
+
+## Deep dives and guides
+Automating presentations:
+https://www.matik.io/blog/the-definitive-guide-to-automating-presentations-in-2026
+
+Automating documents:
+https://www.matik.io/blog/the-definitive-guide-to-automating-documents-in-2026
+
+Automating spreadsheets:
+https://www.matik.io/blog/the-definitive-guide-to-automating-spreadsheets-in-2026
+
+## Supporting content
+Revenue impact:
+https://www.matik.io/revenue-impact
+
+Implementation guide:
+https://www.matik.io/implementing-matik
+
+Security:
+https://www.matik.io/security

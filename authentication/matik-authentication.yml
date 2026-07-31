@@ -1,0 +1,28 @@
+generated: '2026-07-20'
+method: searched
+source: https://developer.matik.io/guides/oauth
+docs: https://developer.matik.io/guides/oauth
+summary:
+  types: [oauth2]
+  oauth2_flows: [authorizationCode, refreshToken]
+  api_key_in: []
+  bearer: true
+schemes:
+  - name: OAuth2
+    type: oauth2
+    flows:
+      - flow: authorizationCode
+        authorizationUrl: https://app.matik.io/oauth/authorize
+        tokenUrl: https://app.matik.io/api/v1/oauth/token/
+        refreshUrl: https://app.matik.io/api/v1/oauth/token/
+        scopes:
+          producer: Administrative access — create/manage templates, data sources, and content.
+          consumer: End-user access — generate presentations/documents from existing templates.
+    sources: [https://developer.matik.io/guides/oauth]
+request:
+  header: 'Authorization: Bearer {access_token}'
+  content_type: application/json
+notes: >-
+  Register client credentials (client id + secret) with producer and consumer scopes.
+  Access tokens are bearer tokens presented against the REST API base https://app.matik.io/api/1.0/.
+  The MCP server uses the same OAuth 2.0 model with dynamic client registration.

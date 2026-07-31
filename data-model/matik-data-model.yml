@@ -1,0 +1,69 @@
+generated: '2026-07-20'
+method: derived
+source: https://developer.matik.io/docs/category/matik-api
+notes: >-
+  Entity graph derived from the Matik External API resource surface (endpoint paths
+  under https://app.matik.io/api/1.0/). Relationships are inferred from nested REST
+  paths (e.g. /templates/{id}/dynamic-content, /templates/{id}/inputs,
+  /data-sources/{id}/...). No object-reference schema was published, so field-level
+  id references beyond the path structure are not asserted.
+entities:
+  - name: User
+    endpoints: 5
+    notes: Current user (me), enterprise users, signup, deletion.
+  - name: Group
+    endpoints: 1
+    notes: Enterprise groups.
+  - name: Template
+    endpoints: 13
+    id: template_id
+  - name: Presentation
+    endpoints: 7
+    id: presentation_id
+  - name: DataSource
+    endpoints: 28
+    id: data_source_id
+  - name: DynamicContent
+    endpoints: 11
+    id: dynamic_content_id
+  - name: Input
+    endpoints: 1
+  - name: Refresh
+    endpoints: 5
+    id: refresh_id
+  - name: BulkPresentation
+    endpoints: 4
+    id: bulk_presentation_id
+  - name: Analytics
+    endpoints: 2
+  - name: AI
+    endpoints: 8
+    notes: Query builder (SQL generation/preview), presentation enhancer, schema tables/columns.
+  - name: WebhookSubscription
+    endpoints: 6
+    id: subscription_id
+relationships:
+  - from: Template
+    to: DynamicContent
+    kind: has_many
+    via: /templates/{template_id}/dynamic-content
+  - from: Template
+    to: Input
+    kind: has_many
+    via: /templates/{template_id}/inputs
+  - from: Template
+    to: Presentation
+    kind: has_many
+    via: generation from template
+  - from: DynamicContent
+    to: Input
+    kind: has_many
+    via: /dynamic-content/{dynamic_content_id}/inputs
+  - from: DataSource
+    to: DynamicContent
+    kind: has_many
+    via: dynamic content queries a data source
+  - from: BulkPresentation
+    to: Presentation
+    kind: has_many
+    via: /bulk-presentations/{bulk_presentation_id}

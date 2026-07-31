@@ -1,0 +1,25 @@
+generated: '2026-07-20'
+method: searched
+source: https://status.matik.io
+versioning:
+  scheme: uri-path
+  current: '1.0'
+  base_url: https://app.matik.io/api/1.0/
+  notes: >-
+    REST operations are served under /api/1.0/; the OAuth token endpoint is under
+    /api/v1/oauth/. A [BETA] MCP server is offered in parallel.
+status_page: https://status.matik.io
+status_page_provider: Atlassian Statuspage
+status_components:
+  - Matik API
+  - Matik App
+  - Matik Website
+status_feeds:
+  - https://status.matik.io/history.atom
+  - https://status.matik.io/history.rss
+deprecation:
+  policy_url: null           # no public deprecation/sunset policy found
+  sunset_header: null
+sla:
+  url: null                  # no public SLA page found
+deprecated_operations: []

@@ -1,0 +1,27 @@
+generated: '2026-07-20'
+method: searched
+source: https://developer.matik.io/guides/oauth
+docs: https://developer.matik.io/guides/oauth
+schemes:
+  - name: OAuth2
+    source: https://developer.matik.io/guides/oauth
+    flows:
+      - flow: authorizationCode
+        authorizationUrl: https://app.matik.io/oauth/authorize
+        tokenUrl: https://app.matik.io/api/v1/oauth/token/
+scopes:
+  - scope: producer
+    description: >-
+      Administrative access. Create and manage templates, data sources, and dynamic
+      content, and perform producer-level operations.
+    flows: [authorizationCode]
+    sources: [https://developer.matik.io/guides/oauth]
+  - scope: consumer
+    description: >-
+      End-user access. Generate presentations, documents, and spreadsheets from
+      existing templates and run dynamic content.
+    flows: [authorizationCode]
+    sources: [https://developer.matik.io/guides/oauth]
+notes: >-
+  Scopes may be requested together ("producer consumer") or individually. Client
+  credentials are registered with the scopes the integration needs.

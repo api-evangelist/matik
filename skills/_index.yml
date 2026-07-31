@@ -1,0 +1,12 @@
+generated: '2026-07-20'
+method: generated
+source: https://help.matik.io/hc/en-us/articles/48790661770267--BETA-Matik-MCP-Server
+skills:
+  - file: matik-generate-presentation-from-template.md
+    name: Generate a presentation from a Matik template
+    api: mcp/matik-mcp.yml
+    operations: [get_all_templates, get_inputs_for_template, query_callback, generate_content]
+  - file: matik-run-dynamic-content.md
+    name: Run a Matik dynamic content query
+    api: mcp/matik-mcp.yml
+    operations: [search_dynamic_content, get_dynamic_content_by_name, get_inputs_for_dynamic_content, query_callback, run_dynamic_content]

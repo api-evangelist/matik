@@ -1,0 +1,23 @@
+generated: '2026-07-20'
+method: searched
+probe: true
+source: https://www.matik.io/security
+url: https://www.matik.io/security
+certifications:
+- SOC 2 Type I
+- SOC 2 Type II
+- GDPR
+practices:
+- AES-256 encryption at rest
+- AWS infrastructure with CloudTrail logging and WAF
+- Role-based access control (RBAC)
+- Enforced two-factor authentication
+- 72-hour breach notification
+- Daily database backups retained 30 days
+contact: hello@matik.io
+evidence:
+- source: https://www.matik.io/security
+  keywords:
+  - soc 2
+  - soc2
+  - gdpr
