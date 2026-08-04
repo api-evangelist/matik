@@ -1,6 +1,7 @@
 generated: '2026-07-20'
 method: searched
-status: published            # beta, access via Technical Account Manager
+status: published
+status_raw: published
 source: https://help.matik.io/hc/en-us/articles/48790661770267--BETA-Matik-MCP-Server
 server:
   name: matik
