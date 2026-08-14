@@ -33,7 +33,7 @@ x-tier: profiled
 x-tier-reason: has-public-api
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-20'
+modified: '2026-08-14'
 tags:
 - Company
 - Content Automation
@@ -51,7 +51,10 @@ apis:
     OAuth 2.0 REST API for automating content generation with Matik — manage templates,
     generate presentations/documents/spreadsheets, run dynamic content queries against
     connected data sources, manage data sources, bulk-generate, pull analytics, and
-    subscribe to webhooks. ~94 operations across 13 resource areas.
+    subscribe to webhooks. 91 documented operations across 15 resource areas, the
+    largest being data sources (27), templates (13) and dynamic content (11). No
+    OpenAPI is published; the reference is Docusaurus-rendered and the only
+    machine-readable client artifact is a Postman OAuth collection.
   humanURL: https://developer.matik.io/
   baseURL: https://app.matik.io/api/1.0/
   tags:
@@ -63,6 +66,12 @@ apis:
     url: https://developer.matik.io/docs/matik/matik-external-api
   - type: Authentication
     url: authentication/matik-authentication.yml
+  - type: ErrorCatalog
+    url: errors/matik-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/matik-rate-limits.yml
+  - type: Postman
+    url: postman/matik-oauth-postman-collection.json
 common:
 - type: Website
   url: https://matik.io
@@ -90,8 +99,10 @@ common:
   url: https://www.matik.io/privacy
 - type: StatusPage
   url: https://status.matik.io
-- type: Security
-  url: https://www.matik.io/security
+- type: Postman
+  url: https://developer.matik.io/guides/oauth
+- type: SourceCode
+  url: https://gitlab.com/matik-io/api-example-app
 - type: Compliance
   url: https://www.matik.io/security
 - type: TrustCenter
@@ -102,8 +113,18 @@ common:
   url: scopes/matik-scopes.yml
 - type: MCPServer
   url: mcp/matik-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/matik-tool-crosswalk.yml
 - type: Webhooks
   url: asyncapi/matik-webhooks.yml
+- type: Packages
+  url: packages/matik-packages.yml
+- type: ErrorCatalog
+  url: errors/matik-problem-types.yml
+- type: RateLimits
+  url: rate-limits/matik-rate-limits.yml
+- type: Plans
+  url: plans/matik-plans-pricing.yml
 - type: Lifecycle
   url: lifecycle/matik-lifecycle.yml
 - type: Conventions
@@ -124,7 +145,7 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 x-enrichment:
-  date: '2026-07-20'
+  date: '2026-08-14'
   status: enriched
-  artifacts_added: 15
+  artifacts_added: 6
   pass: local-v1
