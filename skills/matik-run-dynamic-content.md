@@ -13,10 +13,12 @@ operations:
   - query_callback
   - run_dynamic_content
 rest_equivalents:
-  - GET /api/1.0/dynamic-content
-  - GET /api/1.0/dynamic-content/name/{dynamic_content_name}
-  - POST /api/1.0/dynamic-content/{dynamic_content_id}/inputs
-  - POST /api/1.0/dynamic-content/{dynamic_content_id}/test
+  - GET /api/1.0/dynamic_content
+  - GET /api/1.0/dynamic_content/name/:dynamic_content_name
+  - POST /api/1.0/dynamic_content/:dynamic_content_id/inputs
+  - GET /api/1.0/dynamic_content/:dynamic_content_id/inputs/options/:bulk_query_id
+  - POST /api/1.0/dynamic_content/run/:dynamic_content_id
+  - GET /api/1.0/dynamic_content/query_status/:query_run_id
 ---
 
 # Run a Matik dynamic content query
@@ -43,4 +45,7 @@ OAuth 2.0 bearer token against `https://app.matik.io/api/1.0/`. See
 ## Conventions
 - Pagination: `page` (0-indexed), `per_page` (1–100, default 20).
 - Query resolution and runs are poll-based; wait for completion before reading.
-- See `conventions/matik-conventions.yml` and `data-model/matik-data-model.yml`.
+- `503` on a data-source connection test means the upstream warehouse/BI system is
+  unreachable, not Matik — retry with backoff.
+- See `conventions/matik-conventions.yml`, `data-model/matik-data-model.yml`,
+  `errors/matik-problem-types.yml` and `mcp/matik-tool-crosswalk.yml`.

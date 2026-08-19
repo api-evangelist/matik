@@ -23,3 +23,19 @@ deprecation:
 sla:
   url: null                  # no public SLA page found
 deprecated_operations: []
+changelog:
+  published: false
+  probed:
+    - {url: 'https://www.matik.io/changelog', status: 404}
+    - {url: 'https://developer.matik.io/guides/rss.xml', status: 200}
+  note: >-
+    The developer portal has a "Guides" blog with an RSS feed, but it is not a changelog —
+    it holds two posts (Quick Start Guide, 2025-03-30; OAuth 2.0 Authorization Guide,
+    2025-03-01) and lastBuildDate is 2025-03-30. No dated API release notes exist, so no
+    changelog/ artifact and no ChangeLog pointer are written.
+  checked: '2026-08-14'
+support:
+  email: support@matik.io
+  help_center: https://help.matik.io
+  source: https://developer.matik.io/guides/oauth
+x-recheck: '2026-08-14'

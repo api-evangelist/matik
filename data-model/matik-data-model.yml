@@ -1,69 +1,129 @@
-generated: '2026-07-20'
+generated: '2026-08-14'
 method: derived
-source: https://developer.matik.io/docs/category/matik-api
+source: https://developer.matik.io/docs/matik/matik-external-api
+docs: https://developer.matik.io/docs/category/matik-api
 notes: >-
-  Entity graph derived from the Matik External API resource surface (endpoint paths
-  under https://app.matik.io/api/1.0/). Relationships are inferred from nested REST
-  paths (e.g. /templates/{id}/dynamic-content, /templates/{id}/inputs,
-  /data-sources/{id}/...). No object-reference schema was published, so field-level
-  id references beyond the path structure are not asserted.
+  Entity graph derived from the Matik External API resource surface — all 91 operations
+  documented under https://app.matik.io/api/1.0/, harvested page-by-page from the
+  developer reference. Relationships are read from nested REST paths (e.g.
+  /templates/:template_id/dynamic_content, /dynamic_content/:dynamic_content_id/inputs).
+  Matik publishes no OpenAPI and no object reference, so there are no component schemas
+  to walk: field-level id references beyond the path structure are NOT asserted, and no
+  attribute list is claimed for any entity.
+operations_total: 91
 entities:
-  - name: User
-    endpoints: 5
-    notes: Current user (me), enterprise users, signup, deletion.
-  - name: Group
-    endpoints: 1
-    notes: Enterprise groups.
-  - name: Template
-    endpoints: 13
-    id: template_id
-  - name: Presentation
-    endpoints: 7
-    id: presentation_id
   - name: DataSource
-    endpoints: 28
     id: data_source_id
+    operations: 27
+    paths: [/data_sources]
+    notes: >-
+      The largest surface. Beyond CRUD it carries connector-specific browse operations for
+      Metabase (collections, dashboards, questions, cards, parameters, columns, embed
+      url), Looker (embed_session), Tableau (views per workbook), Google Sheets and Excel
+      (sheet + rows), plus test_connection and copy_from_sample_library.
+  - name: Template
+    id: template_id
+    operations: 13
+    paths: [/templates]
+    notes: >-
+      Created as PowerPoint or Google Slides, or copied from the template library. Carries
+      inputs (incl. bulk), attachments, dynamic content, save_folder and a queue status.
   - name: DynamicContent
-    endpoints: 11
     id: dynamic_content_id
-  - name: Input
-    endpoints: 1
-  - name: Refresh
-    endpoints: 5
-    id: refresh_id
-  - name: BulkPresentation
-    endpoints: 4
-    id: bulk_presentation_id
-  - name: Analytics
-    endpoints: 2
+    operations: 11
+    paths: [/dynamic_content]
+    notes: >-
+      Addressable by id and by name (/dynamic_content/name/:dynamic_content_name). Runs are
+      asynchronous — /dynamic_content/run/:dynamic_content_id then
+      /dynamic_content/query_status/:query_run_id.
   - name: AI
-    endpoints: 8
-    notes: Query builder (SQL generation/preview), presentation enhancer, schema tables/columns.
+    operations: 8
+    paths: [/ai]
+    notes: >-
+      Not a persisted entity — a task surface. Query builder (generate, preview, and their
+      status polls), schema introspection (tables, columns) and the presentation enhancer
+      (generate + status by task_id).
+  - name: Presentation
+    id: presentation_id
+    operations: 7
+    paths: [/presentations]
+    notes: >-
+      Generated from a template. Retrievable by id, by file id, as PDF, and by queue status.
   - name: WebhookSubscription
-    endpoints: 6
     id: subscription_id
+    operations: 6
+    paths: [/webhook_subscriptions]
+  - name: User
+    id: user_id
+    operations: 5
+    paths: [/users]
+    notes: Current user (/users/me), enterprise users, signup, delete, deletion task status.
+  - name: BulkPresentation
+    id: bulk_presentation_id
+    operations: 4
+    paths: [/bulk_presentations]
+    notes: Create, get, start, and poll status.
+  - name: Refresh
+    id: refresh_id
+    operations: 3
+    paths: [/refresh_content]
+  - name: Analytics
+    operations: 2
+    paths: [/analytics]
+    notes: Async CSV export — POST /analytics/csv then GET /analytics/csv/:task_id.
+  - name: Group
+    operations: 1
+    paths: [/groups]
+  - name: Input
+    operations: 1
+    paths: [/inputs]
+  - name: ScheduledTask
+    id: document_id
+    operations: 1
+    paths: [/scheduled_tasks]
+  - name: ScheduleRefresh
+    operations: 1
+    paths: [/schedule_refresh]
+  - name: OAuthConnection
+    operations: 1
+    paths: [/update_oauth]
+    notes: GET /update_oauth/:data_source_id — re-authorizes a data source connection.
 relationships:
   - from: Template
     to: DynamicContent
     kind: has_many
-    via: /templates/{template_id}/dynamic-content
+    via: /templates/:template_id/dynamic_content
   - from: Template
     to: Input
     kind: has_many
-    via: /templates/{template_id}/inputs
+    via: /templates/:template_id/inputs
   - from: Template
     to: Presentation
     kind: has_many
-    via: generation from template
+    via: POST /presentations with template_id
   - from: DynamicContent
     to: Input
     kind: has_many
-    via: /dynamic-content/{dynamic_content_id}/inputs
+    via: /dynamic_content/:dynamic_content_id/inputs
   - from: DataSource
     to: DynamicContent
     kind: has_many
-    via: dynamic content queries a data source
+    via: dynamic content executes a query against a data source
+  - from: DataSource
+    to: OAuthConnection
+    kind: has_one
+    via: /update_oauth/:data_source_id
   - from: BulkPresentation
     to: Presentation
     kind: has_many
-    via: /bulk-presentations/{bulk_presentation_id}
+    via: POST /bulk_presentations/:bulk_presentation_id/start
+  - from: Presentation
+    to: Refresh
+    kind: has_many
+    via: POST /refresh_content/
+x-correction: >-
+  Path spelling corrected 2026-08-14 — Matik's real paths use underscores
+  (/data_sources, /dynamic_content, /bulk_presentations, /refresh_content,
+  /webhook_subscriptions), not the hyphenated forms recorded in the 2026-07-20 pass.
+  Entity operation counts were also recomputed against the harvested 91-operation
+  inventory.

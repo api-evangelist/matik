@@ -1,17 +1,70 @@
-generated: '2026-07-20'
-method: searched
-host: https://matik.io
-documents:
-  - path: /.well-known/security.txt
-    status: 404
-  - path: /.well-known/openid-configuration
-    status: 404
-  - path: /.well-known/oauth-authorization-server
-    status: 404
-  - path: /.well-known/api-catalog
-    status: 404
-  - path: /.well-known/ai-plugin.json
-    status: 404
+generated: '2026-08-14'
+method: probed
+source: live HTTPS probes (redirects followed) of every Matik host in apis.yml
+hosts_probed:
+  - https://www.matik.io
+  - https://app.matik.io
+  - https://developer.matik.io
+  - https://status.matik.io
+  - https://help.matik.io
+documents: []
+probes:
+  - host: www.matik.io
+    results:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/oauth-protected-resource, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+  - host: app.matik.io
+    note: >-
+      The API + application host. Answers unknown non-/.well-known paths with an SPA
+      shell (HTTP 200, body "Matik"), but genuinely 404s every /.well-known/ path — so
+      these are real negatives, not soft-404s.
+    results:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/oauth-protected-resource, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+  - host: developer.matik.io
+    note: >-
+      Docusaurus. Every /.well-known/ path first 301s to its trailing-slash form and then
+      404s; the 301 is the static-site router, not a document.
+    results:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404, via: 301}
+      - {path: /.well-known/oauth-authorization-server, status: 404, via: 301}
+      - {path: /.well-known/oauth-protected-resource, status: 404, via: 301}
+      - {path: /.well-known/api-catalog, status: 404, via: 301}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+  - host: status.matik.io
+    results:
+      - path: /.well-known/security.txt
+        status: 200
+        owner: Atlassian
+        counted: false
+        note: >-
+          NOT a Matik document. status.matik.io is a hosted Atlassian Statuspage; the
+          served security.txt is Atlassian's own, PGP-signed, with
+          Canonical: https://www.atlassian.com/.well-known/security.txt and
+          Contact: security@atlassian.com. Crediting Matik with this would credit a
+          vendor's file to a customer, so it is recorded and deliberately excluded — no
+          SecurityTxt pointer is wired and no file is saved into this repo.
 notes: >-
-  No /.well-known/ discovery documents are published on matik.io (all 404 as of the
-  probe date). Recorded as honest negative evidence; no WellKnown pointer is wired.
+  Matik publishes no /.well-known/ discovery surface on any host it controls. Every path
+  on www.matik.io, app.matik.io and developer.matik.io returns 404. Recorded as honest
+  negative evidence: no WellKnown, SecurityTxt or AgentCard pointer is wired in apis.yml,
+  because a pointer asserts the provider serves that surface and Matik does not.
+  Notably absent given the API is OAuth 2.0 only: there is no
+  /.well-known/oauth-authorization-server (RFC 8414) and no
+  /.well-known/openid-configuration, so the authorize and token endpoints are discoverable
+  only by reading the prose guide at https://developer.matik.io/guides/oauth.

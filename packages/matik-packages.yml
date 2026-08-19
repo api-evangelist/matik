@@ -1,0 +1,68 @@
+generated: '2026-08-14'
+method: searched
+source: >-
+  Registry searches (npm, PyPI, RubyGems, crates.io, Maven Central) plus the Matik
+  developer portal (developer.matik.io), the matik-io GitHub organization and the
+  matik-io GitLab group.
+package_count: 0
+packages: []
+notes: >-
+  Matik publishes no first-party client library on any public package registry as of
+  the probe date. Every registry lookup below was performed unauthenticated against the
+  registry's own metadata endpoint and returned 404 (or, for crates.io, a 403 bot
+  block). The npm text search for "matik" returns only unrelated third-party packages
+  (matikcodes-discord, matik-package, @jetigo/siparis-matik, @matikdotapp/shared) — none
+  are published by Matik, Inc. Integrators are expected to call the REST API directly
+  over OAuth 2.0; the developer portal ships a sample Flask application and a Postman
+  OAuth collection instead of an SDK.
+registry_probes:
+  - registry: npm
+    query: matik
+    status: 200
+    result: no first-party package
+  - registry: pypi
+    names: [matik, matik-api, matik-sdk, matik-io, pymatik]
+    status: 404
+    result: absent
+  - registry: rubygems
+    names: [matik]
+    status: 404
+    result: absent
+  - registry: crates.io
+    names: [matik]
+    status: 403
+    result: probe blocked by crates.io bot protection; no crate referenced from Matik docs
+  - registry: maven-central
+    path: io/matik/
+    status: 404
+    result: absent
+first_party_source:
+  - name: Api Example App
+    kind: sample-application
+    language: python
+    framework: Flask
+    url: https://gitlab.com/matik-io/api-example-app
+    official: true
+    registry: null
+    version: null
+    published: '2025-12-15'
+    note: >-
+      Not a published package — a first-party runnable example that walks the OAuth 2.0
+      flow and calls the Matik REST API with `requests`. No registry metadata endpoint
+      exists for it, so `version` is null by fact rather than by omission; `published`
+      is the GitLab last_activity_at for the project.
+  - name: Matik OAuth (Postman collection)
+    kind: postman-collection
+    url: https://developer.matik.io/assets/files/matik_oauth_postman_collection-4147e72d2aa1baee604b96d4f4075b58.json
+    official: true
+    registry: null
+    version: null
+    published: null
+    note: >-
+      Linked from https://developer.matik.io/guides/oauth ("Postman users can download
+      this prefilled OAuth collection"). Postman collection schema v2.1.0, prefilled with
+      the authorize/token URLs and the producer+consumer scopes. Saved verbatim to
+      postman/matik-oauth-postman-collection.json. The asset URL is content-hashed by
+      Docusaurus, so it changes on every docs rebuild — there is no stable version to
+      record.
+sdk_count: 0

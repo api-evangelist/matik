@@ -1,31 +1,59 @@
-generated: '2026-07-20'
+generated: '2026-08-14'
 method: searched
-source: https://developer.matik.io/docs/category/matik-api
+source: https://developer.matik.io/docs/matik/webhook-subscriptions
+docs: https://developer.matik.io/docs/category/matik-api
 spec_type: Webhooks
 notes: >-
-  Matik publishes a Webhook Subscriptions resource in its REST API (developer.matik.io),
-  but does not publish an AsyncAPI document. This captures the webhook management
-  surface. Subscriptions carry a rotatable signing secret.
+  Matik publishes a Webhook Subscriptions resource in its REST API reference
+  (developer.matik.io) but does not publish an AsyncAPI document, and does not publish an
+  event catalog: the six operations below manage subscriptions, and nothing in the
+  reference names the event types that will be delivered, the delivery payload shape, or
+  the signature header/algorithm used to verify a delivery. A consumer can create a
+  subscription from the docs but cannot, from the docs alone, know what will arrive on it
+  or how to verify it. Subscriptions carry a per-subscription signing secret that can be
+  rotated.
 management_api:
   base_url: https://app.matik.io/api/1.0/
   operations:
-    - method: POST
-      path: /webhook-subscriptions
-      summary: Create a webhook subscription (route).
     - method: GET
-      path: /webhook-subscriptions
+      path: /webhook_subscriptions
       summary: List webhook subscriptions.
-    - method: GET
-      path: /webhook-subscriptions/{subscription_id}
-      summary: Get a webhook subscription.
-    - method: PUT
-      path: /webhook-subscriptions/{subscription_id}
-      summary: Update a webhook subscription.
-    - method: DELETE
-      path: /webhook-subscriptions/{subscription_id}
-      summary: Delete a webhook subscription.
+      responses: [200, 400]
     - method: POST
-      path: /webhook-subscriptions/{subscription_id}/rotate-secret
+      path: /webhook_subscriptions
+      summary: Create a webhook subscription (route).
+      responses: [201, 400]
+    - method: GET
+      path: /webhook_subscriptions/:subscription_id
+      summary: Get a webhook subscription.
+      responses: [200, 400, 404]
+    - method: PUT
+      path: /webhook_subscriptions/:subscription_id
+      summary: Update a webhook subscription.
+      responses: [200, 400, 404]
+    - method: DELETE
+      path: /webhook_subscriptions/:subscription_id
+      summary: Delete a webhook subscription.
+      responses: [200, 400, 404]
+    - method: POST
+      path: /webhook_subscriptions/:subscription_id/rotate_secret
       summary: Rotate the subscription signing secret.
+      responses: [200, 400, 404]
 signing:
-  secret: per-subscription, rotatable via the rotate-secret operation
+  secret: per-subscription, rotatable via the rotate_secret operation
+  header: null
+  algorithm: null
+  note: The verification header name and algorithm are not documented publicly.
+events:
+  catalog_published: false
+  event_types: []
+asyncapi:
+  published: false
+  probed:
+    - {url: 'https://developer.matik.io/asyncapi.yaml', status: 404}
+    - {url: 'https://developer.matik.io/openapi.json', status: 404}
+x-correction: >-
+  Path spelling corrected 2026-08-14 from /webhook-subscriptions to
+  /webhook_subscriptions after harvesting the 91 documented operations directly from the
+  reference — Matik's real paths use underscores. The previous hyphenated forms would
+  have 404'd.

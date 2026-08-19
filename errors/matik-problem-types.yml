@@ -1,0 +1,95 @@
+generated: '2026-08-14'
+method: searched
+source: https://developer.matik.io/docs/matik/matik-external-api
+docs: https://developer.matik.io/docs/category/matik-api
+format: http-status
+format_note: >-
+  Matik does NOT publish an RFC 9457 problem+json envelope. Its API reference documents
+  responses by bare HTTP status with the standard reason phrase only — no error `type`
+  URI, no machine-readable `code`, no documented body schema for any 4xx/5xx. This
+  catalog therefore records the status surface Matik actually publishes; it does not
+  invent codes, titles or remediation Matik has not written.
+harvest:
+  operations_documented: 91
+  pages_read: 104
+  method: >-
+    Every /docs/matik/* page in https://developer.matik.io/sitemap.xml was fetched and the
+    rendered "Responses" block parsed. developer.matik.io is Docusaurus with
+    docusaurus-plugin-openapi-docs (class `openapi__heading`), so these pages are built
+    FROM an OpenAPI document — but that document is not served anywhere public (see
+    conformance/matik-conformance.yml).
+problems:
+  - status: 400
+    title: Bad Request
+    operations: 86
+    coverage: 95% of documented operations
+    example_operations:
+      - POST /api/1.0/presentations/
+      - POST /api/1.0/ai/query-builder/generate/
+      - GET /api/1.0/templates/:template_id
+    note: >-
+      The near-universal error response. Matik documents no discriminating body, so a
+      client cannot tell a validation failure from a data-source failure without reading
+      the response text.
+  - status: 403
+    title: Forbidden
+    operations: 39
+    example_operations:
+      - DELETE /api/1.0/data_sources/:data_source_id
+      - GET /api/1.0/data_sources/:data_source_id/info/:resource_name/
+      - PUT /api/1.0/dynamic_content/:dynamic_content_id
+    note: >-
+      Concentrated on producer-scope operations (data sources, dynamic content,
+      templates). Expect this when a consumer-scoped token calls a producer operation.
+      See scopes/matik-scopes.yml.
+  - status: 404
+    title: Not Found
+    operations: 32
+    example_operations:
+      - GET /api/1.0/ai/presentation-enhancer/status/:task_id/
+      - GET /api/1.0/bulk_presentations/:bulk_presentation_id
+      - GET /api/1.0/presentations/:presentation_id
+    note: Unknown id, or an async task/queue id that has expired.
+  - status: 401
+    title: Unauthorized
+    operations: 2
+    example_operations:
+      - POST /api/1.0/presentations/
+      - POST /api/1.0/bulk_presentations/
+    note: >-
+      Documented on only two operations even though every operation requires OAuth 2.0.
+      Treat 401 as possible on all of them and refresh the token — the OAuth guide's
+      troubleshooting table names "Token expired -> implement automatic token refresh".
+  - status: 500
+    title: Internal Server Error
+    operations: 7
+    example_operations:
+      - POST /api/1.0/ai/query-builder/generate/
+      - POST /api/1.0/ai/presentation-enhancer/generate/
+      - GET /api/1.0/ai/query-builder/generate/status/:task_id
+    note: Documented almost exclusively on the AI generation/status operations.
+  - status: 503
+    title: Service Unavailable
+    operations: 2
+    example_operations:
+      - POST /api/1.0/data_sources/test_connection
+      - GET /api/1.0/data_sources/test_connection/:data_source_id
+    note: >-
+      Data-source connectivity tests — the upstream warehouse/BI system is unreachable,
+      not Matik. Retry with backoff.
+success_statuses:
+  - status: 200
+    operations: 77
+  - status: 202
+    operations: 11
+    note: >-
+      Accepted — the async contract. Used by the AI query builder, refresh and analytics
+      export operations. Poll the status URL from the Location header (200 = still
+      running, 303 = complete). See conventions/matik-conventions.yml.
+  - status: 201
+    operations: 10
+gaps:
+  - No error `code` vocabulary is published.
+  - No error body schema is documented for any status.
+  - No RFC 9457 / application/problem+json media type anywhere in the reference.
+  - No 429 is documented on any of the 91 operations (see rate-limits/matik-rate-limits.yml).

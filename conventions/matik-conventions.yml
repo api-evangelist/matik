@@ -1,41 +1,98 @@
-generated: '2026-07-20'
+generated: '2026-08-14'
 method: searched
 source: https://developer.matik.io/guides/quickstart
 docs:
   - https://developer.matik.io/guides/quickstart
   - https://developer.matik.io/guides/oauth
+  - https://developer.matik.io/docs/matik/matik-external-api
   - https://help.matik.io/hc/en-us/articles/48790661770267--BETA-Matik-MCP-Server
 authentication:
   style: oauth2-bearer
   header: 'Authorization: Bearer {access_token}'
+  roles: [producer, consumer]
+  entitlement: >-
+    API access is enabled per account by a Matik account manager; clients are then created
+    under Enterprise Settings > Clients.
   see: authentication/matik-authentication.yml
 base_url: https://app.matik.io/api/1.0/
+path_style: snake_case
+path_style_note: >-
+  Resource segments use underscores — /data_sources, /dynamic_content,
+  /bulk_presentations, /refresh_content, /webhook_subscriptions, /scheduled_tasks.
+  Path parameters render as :name in the reference.
 content_type: application/json
+token_endpoint_content_type: application/x-www-form-urlencoded
 versioning:
   style: uri-path
   current: '1.0'
+  note: >-
+    REST is served under /api/1.0/ while the OAuth token endpoint sits under /api/v1/ —
+    two different version strings on the same host.
 async_operations:
   style: poll
   notes: >-
-    Long-running operations (presentation generation, refresh, AI query building,
-    analytics export, bulk presentations) are asynchronous. The create call returns
-    an id and a Location header pointing at a status URL; poll it — 200 means still
-    in progress, 303 means complete (Location carries the result URL).
+    Long-running operations (presentation generation, bulk presentations, content refresh,
+    AI query generation/preview, presentation enhancement, analytics CSV export) are
+    asynchronous. The create call returns an id and a Location header pointing at a status
+    URL; poll it — 200 means still in progress, 303 means complete (Location carries the
+    result URL). 11 of the 91 documented operations declare a 202 Accepted.
+  status_endpoints:
+    - /presentations/queue/:presentation_id
+    - /templates/queue/:template_id
+    - /bulk_presentations/:bulk_presentation_id/status
+    - /dynamic_content/query_status/:query_run_id
+    - /dynamic_content/:dynamic_content_id/inputs/options/:bulk_query_id
+    - /templates/:template_id/inputs/options/:bulk_query_id
+    - /refresh_content/:refresh_id/status/
+    - /analytics/csv/:task_id
+    - /ai/query-builder/generate/status/:task_id
+    - /ai/query-builder/preview/status/:query_run_id
+    - /ai/presentation-enhancer/status/:task_id/
+    - /users/tasks/:task_id/status
 pagination:
   style: page-number
   params:
     page: 0-indexed page number (default 0)
     per_page: results per page, 1-100 (default 20)
   source: https://help.matik.io/hc/en-us/articles/48790661770267--BETA-Matik-MCP-Server
-  notes: Observed on Dynamic Content search; applied across list endpoints.
+  notes: >-
+    Documented only on the MCP dynamic-content search tool. The REST reference publishes
+    no query-parameter table for any list operation, so pagination on the REST list
+    endpoints is inferred from the MCP tool contract rather than stated by Matik.
 idempotency:
   supported: false
-  notes: No idempotency-key contract is documented by Matik.
+  notes: >-
+    No idempotency-key contract is documented anywhere on the developer portal — zero
+    occurrences of "idempoten" across all 104 reference pages and both guides. Retrying a
+    POST /presentations/ or POST /bulk_presentations/ may generate duplicate content.
 webhooks:
   supported: true
   see: asyncapi/matik-webhooks.yml
+  notes: Subscription management only; no event catalog or signature scheme is published.
 rate_limits:
   documented: false
+  see: rate-limits/matik-rate-limits.yml
+  notes: >-
+    Acknowledged in one troubleshooting row ("Rate limiting -> implement exponential
+    backoff") with no figure, no header and no 429.
 error_envelope:
   documented: false
-  notes: No public RFC 9457 / structured error-catalog reference was found.
+  format: http-status
+  see: errors/matik-problem-types.yml
+  notes: >-
+    Bare HTTP statuses with standard reason phrases. No body schema, no error code
+    vocabulary, no application/problem+json.
+field_expansion:
+  supported: null
+  notes: Not documented.
+request_tracing:
+  request_id_header: null
+  notes: No request-id or correlation header is documented.
+machine_readable_contract:
+  openapi: false
+  notes: >-
+    developer.matik.io is Docusaurus running docusaurus-plugin-openapi-docs, so an OpenAPI
+    document exists upstream of the rendered reference — but it is not served at any
+    public URL (see conformance/matik-conformance.yml for the probe list). The one
+    machine-readable client artifact Matik does publish is a Postman OAuth collection,
+    saved at postman/matik-oauth-postman-collection.json.

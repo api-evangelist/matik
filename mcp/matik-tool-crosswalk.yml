@@ -1,0 +1,158 @@
+generated: '2026-08-14'
+method: derived
+source: >-
+  mcp/matik-mcp.yml (published tool list, from
+  https://help.matik.io/hc/en-us/articles/48790661770267--BETA-Matik-MCP-Server) bound
+  against the 91 operations harvested from https://developer.matik.io/docs/matik/*
+binding_note: >-
+  Matik publishes NO OpenAPI document, so there are no operationIds to bind to. Rows bind
+  each MCP tool to the METHOD + PATH of the REST operation as published in the developer
+  reference. That is the strongest identifier Matik makes available; `rest` therefore
+  carries paths, not operationIds, and `binding: rest-path` says so explicitly rather
+  than inventing ids. The live MCP `tools/list` could not be introspected — the server
+  URL is issued privately by a Matik Technical Account Manager — so tool input schemas
+  are the names published in the help-centre article, not fetched schemas.
+surfaces:
+  openapi:
+    published: false
+    note: >-
+      developer.matik.io is Docusaurus running docusaurus-plugin-openapi-docs (rendered
+      pages carry the `openapi__heading` / `openapi-tabs__*` classes), so a source OpenAPI
+      exists internally. It is not served: /openapi.json, /openapi.yaml, /matik.yaml on the
+      docs host and /swagger, /swagger.json, /openapi.json, /api/1.0/swagger on the API
+      host all 404 (app.matik.io answers unknown paths with an SPA shell, not a spec).
+  rest:
+    base_url: https://app.matik.io/api/1.0/
+    reference: https://developer.matik.io/docs/matik/matik-external-api
+    operations: 91
+    gated: false
+  graphql:
+    published: false
+  mcp:
+    status: beta
+    url: null
+    gated: true
+    note: >-
+      Endpoint URL is not public — obtained from a Matik Technical Account Manager. OAuth
+      2.0 with dynamic client registration. tools/list not introspectable anonymously.
+    tools: 8
+crosswalk:
+  - tool: get_all_templates
+    category: templates
+    rest:
+      - GET /api/1.0/templates
+    binding: rest-path
+    confidence: high
+  - tool: get_inputs_for_template
+    category: templates
+    rest:
+      - POST /api/1.0/templates/:template_id/inputs
+      - GET /api/1.0/templates/:template_id/inputs/options/:bulk_query_id
+    binding: rest-path
+    confidence: high
+    note: >-
+      Fans out: the POST returns the input set, and dependent input options resolve
+      asynchronously via the options/:bulk_query_id poll.
+  - tool: query_callback
+    category: async
+    rest:
+      - GET /api/1.0/templates/:template_id/inputs/options/:bulk_query_id
+      - GET /api/1.0/dynamic_content/:dynamic_content_id/inputs/options/:bulk_query_id
+      - GET /api/1.0/dynamic_content/query_status/:query_run_id
+    binding: rest-path
+    confidence: medium
+    note: >-
+      The MCP server exposes one polling tool over what REST splits into three distinct
+      status endpoints. Which one backs a given call depends on whether the caller is
+      resolving template inputs, dynamic-content inputs, or a raw query run.
+  - tool: generate_content
+    category: presentations
+    rest:
+      - POST /api/1.0/presentations/
+      - GET /api/1.0/presentations/queue/:presentation_id
+      - GET /api/1.0/presentations/:presentation_id
+    binding: rest-path
+    confidence: high
+    note: >-
+      Composite. The tool creates, polls to completion and returns a download URL; REST
+      requires the caller to drive the create -> queue-poll -> fetch sequence itself
+      (200 = still running, 303 = complete).
+  - tool: search_dynamic_content
+    category: dynamic-content
+    rest:
+      - GET /api/1.0/dynamic_content
+    binding: rest-path
+    confidence: medium
+    note: >-
+      The tool takes search_term/page/per_page. The REST list operation is documented
+      without a published query-parameter reference, so the search parameter mapping is
+      asserted from the MCP tool description, not from the spec.
+  - tool: get_dynamic_content_by_name
+    category: dynamic-content
+    rest:
+      - GET /api/1.0/dynamic_content/name/:dynamic_content_name
+    binding: rest-path
+    confidence: high
+  - tool: get_inputs_for_dynamic_content
+    category: dynamic-content
+    rest:
+      - POST /api/1.0/dynamic_content/:dynamic_content_id/inputs
+    binding: rest-path
+    confidence: high
+  - tool: run_dynamic_content
+    category: dynamic-content
+    rest:
+      - POST /api/1.0/dynamic_content/run/:dynamic_content_id
+      - GET /api/1.0/dynamic_content/query_status/:query_run_id
+    binding: rest-path
+    confidence: high
+mcp_only: []
+mcp_only_note: >-
+  Every published MCP tool maps onto at least one documented REST operation. The MCP
+  surface is a curated, composite subset of REST — it adds polling and download
+  orchestration, not new capability.
+rest_only:
+  - capability: Data sources
+    operations: 27
+    note: >-
+      The entire data-source surface — create/update/delete, connection tests, and the
+      Metabase, Looker, Tableau, Google Sheets and Excel browse operations — has no MCP
+      tool. This is the largest divergence: an agent can RUN dynamic content but cannot
+      manage or inspect what it runs against.
+  - capability: Templates (write)
+    operations: 11
+    note: >-
+      create PowerPoint / Google Slides templates, copy from template library, delete,
+      attachments, save folder, queue status, bulk inputs. MCP exposes read + inputs only.
+  - capability: AI
+    operations: 8
+    note: >-
+      Query builder generate/preview (+ status), schema tables/columns, presentation
+      enhancer generate/status. No MCP tool, despite being the agent-shaped surface.
+  - capability: Presentations (management)
+    operations: 4
+    note: list, get by file id, PDF render, delete.
+  - capability: Webhook subscriptions
+    operations: 6
+    note: full CRUD + rotate_secret. No MCP tool; see asyncapi/matik-webhooks.yml.
+  - capability: Bulk presentations
+    operations: 4
+  - capability: Users and groups
+    operations: 6
+  - capability: Refresh and scheduling
+    operations: 5
+  - capability: Analytics
+    operations: 2
+  - capability: Dynamic content (write)
+    operations: 5
+    note: create, update, delete, subcontent column indexing.
+  - capability: OAuth connection update
+    operations: 1
+coverage:
+  mcp_tools_named: 8
+  mcp_tools_bound: 8
+  mcp_only: 0
+  rest_operations_total: 91
+  rest_operations_with_a_tool: 12
+  rest_operations_without_a_tool: 79
+  rest_coverage_pct: 13

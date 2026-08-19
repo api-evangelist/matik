@@ -1,0 +1,33 @@
+generated: '2026-08-14'
+method: searched
+source: https://www.matik.io/
+plan_count: 0
+plans: []
+pricing_page: null
+model: enterprise-contact-sales
+notes: >-
+  Matik publishes no pricing of any kind. The primary navigation on www.matik.io carries
+  a "Pricing" item, but its href is /templates/pricing, which returns HTTP 404 — the link
+  is broken, so even the marketing surface does not reach a plans page. There is no
+  /pricing, /plans or /get-started page. The only commercial call to action is
+  "Request Demo" (https://www.matik.io/request-demo) and "Contact Sales". API access is
+  additionally gated behind an account manager: the Quick Start Guide instructs
+  "Reach out to your account manager to enable the Matik REST API in your account."
+  This is an honest zero, not an unchecked field — no tier, quota, overage or seat price
+  is published anywhere on the site or the developer portal.
+evidence:
+  - url: https://www.matik.io/templates/pricing
+    status: 404
+    finding: The destination of the site's own "Pricing" nav link is a 404 page.
+  - url: https://www.matik.io/pricing
+    status: 404
+  - url: https://www.matik.io/plans
+    status: 404
+  - url: https://www.matik.io/request-demo
+    status: 200
+    finding: The demo-request form is the only commercial entry point.
+  - url: https://developer.matik.io/guides/quickstart
+    status: 200
+    finding: >-
+      "Reach out to your account manager to enable the Matik REST API in your account."
+      API entitlement is granted per contract, not per plan.

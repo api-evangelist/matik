@@ -13,9 +13,11 @@ operations:
   - generate_content
 rest_equivalents:
   - GET /api/1.0/templates
-  - POST /api/1.0/templates/{template_id}/inputs
-  - POST /api/1.0/presentations
-  - GET /api/1.0/presentations/{presentation_id}
+  - POST /api/1.0/templates/:template_id/inputs
+  - GET /api/1.0/templates/:template_id/inputs/options/:bulk_query_id
+  - POST /api/1.0/presentations/
+  - GET /api/1.0/presentations/queue/:presentation_id
+  - GET /api/1.0/presentations/:presentation_id
 ---
 
 # Generate a presentation from a Matik template
@@ -52,3 +54,8 @@ valid Matik account.
   `conventions/matik-conventions.yml`.
 - List endpoints paginate with `page` (0-indexed) and `per_page` (1–100, default 20).
 - No idempotency-key contract is documented; avoid blind retries of `generate_content`.
+- Errors are bare HTTP statuses with no body schema — `400` covers 95% of documented
+  failure paths and does not discriminate. `403` means a consumer-scoped token hit a
+  producer operation. See `errors/matik-problem-types.yml`.
+- No rate limit is published and no `429`/`Retry-After` is documented; back off
+  exponentially on repeated failures. See `rate-limits/matik-rate-limits.yml`.

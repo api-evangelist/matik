@@ -1,0 +1,35 @@
+generated: '2026-08-14'
+method: searched
+source: https://developer.matik.io/guides/oauth
+docs: https://developer.matik.io/docs/category/matik-api
+limit_count: 0
+rate_limits: []
+headers: []
+status_on_exhaustion: null
+notes: >-
+  Matik documents NO numeric rate limits, no window, no burst, no response headers and
+  no status code on exhaustion. The only acknowledgement that rate limiting exists at all
+  is one row in the troubleshooting table of the OAuth 2.0 guide — "Rate limiting ->
+  Implement exponential backoff for retries" — with no figure attached. An agent
+  therefore has no runtime signal: it cannot read a remaining-quota header, cannot
+  compute a reset time, and cannot distinguish throttling from any other 400.
+evidence:
+  - url: https://developer.matik.io/guides/oauth
+    status: 200
+    finding: >-
+      Troubleshooting table row "Rate limiting | Implement exponential backoff for
+      retries". No limit, window, header or status code is given.
+  - url: https://developer.matik.io/sitemap.xml
+    status: 200
+    finding: >-
+      All 104 /docs/matik/* reference pages fetched; zero occurrences of "rate limit",
+      "429", "Retry-After", "X-RateLimit", "throttl" or "quota" across the entire corpus.
+  - url: https://developer.matik.io/docs/matik/matik-external-api
+    status: 200
+    finding: >-
+      No 429 response is documented on any of the 91 operations in the reference.
+recommendation: >-
+  Publish the per-client limit and window, and return RateLimit-Limit / RateLimit-
+  Remaining / RateLimit-Reset (or X-RateLimit-*) plus a 429 with Retry-After. Without a
+  header an integrator can only guess, and "implement exponential backoff" is advice
+  rather than a contract.
