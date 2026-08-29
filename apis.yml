@@ -10,6 +10,17 @@ description: >-
   (OAuth 2.0) covering templates, presentations, dynamic content, data sources, bulk
   generation, analytics, webhooks, and AI query building, plus a beta MCP server for
   agent-driven content generation.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
