@@ -23,15 +23,19 @@ deliveryModel:
   method: derived
 accessModel:
   pricing: unknown
-  onboarding: self-serve
+  onboarding: approval
   trial: false
   try_now: false
   public: false
-  label: Self-serve signup
+  label: Requires approval
   confidence: medium
   source:
+  - plans
   - authentication
-  generated: '2026-07-22'
+  - scopes
+  - rate-limits
+  - security
+  generated: '2026-09-03'
   method: derived
 image: https://cdn.prod.website-files.com/6169c25fc3b5f387dbc1b0ab/672c8fdcb72e6d3999cd7f45_Matik%20Logo%20On%20White%20Colored.png
 url: https://raw.githubusercontent.com/api-evangelist/matik/refs/heads/main/apis.yml
