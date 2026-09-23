@@ -72,22 +72,7 @@ workflows:
   - run_dynamic_content
 deployment:
   mode: remote
-  endpoint: null
-  install: null
-  package: null
-  auth: oauth
   verified: searched
   tools: 8
-  checked: '2026-08-14'
-  source: >-
-    https://help.matik.io/hc/en-us/articles/48790661770267--BETA-Matik-MCP-Server
-  endpoint_note: >-
-    A hosted remote server (an MCP client connects over HTTP with OAuth 2.0 dynamic
-    client registration from Claude or ChatGPT as a custom connector) — NOT a local
-    stdio package; there is no npx/pip install and no published repository. But the
-    endpoint URL is not public: Matik issues it through a Technical Account Manager.
-    `endpoint` is therefore null by fact, not by omission, and no URL is guessed here.
-    Consequence: an agent cannot reach this server from public information alone, and
-    tools/list cannot be introspected anonymously, so the tool input schemas below are
-    the parameter NAMES published in the help-centre article rather than fetched
-    JSON Schema.
+  checked: '2026-08-12'
+  source: catalog MCP census
