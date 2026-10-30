@@ -64,6 +64,128 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Matik is a company surfaced as a portfolio company of a16z, menlo-ventures and added to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+Matik is a data-driven content automation platform that generates personalized presentations, documents, spreadsheets, reports, and emails directly from connected data sources — BI tools, CRMs, data warehouses, spreadsheets, and REST APIs. Teams in Sales, Customer Success, and Revenue Operations use templates with dynamic content, conditional logic, and AI-generated narratives to produce on-brand content at scale across Google Slides, PowerPoint, PDF, and email. Matik exposes a REST External API (OAuth 2.0) covering templates, presentations, dynamic content, data sources, bulk generation, analytics, webhooks, and AI query building, plus a beta MCP server for agent-driven content generation.
 
-Backed by: a16z, menlo-ventures — https://matik.io
+**Areas:** Company · Content Automation · Presentations · Documents · Data-Driven Content · Sales Enablement · Customer Success · Revenue Operations · Artificial Intelligence · MCP
+
+## Matik on APIs.io
+
+Everything profiled for Matik is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/matik/](https://apis.io/providers/matik/)** — or go straight to one of the APIs or properties below.
+
+### APIs (1)
+
+- [Matik External API](https://apis.io/apis/matik/matik-external-api/) — OAuth 2.0 REST API for automating content generation with Matik — manage templates, generate presentations/documents/spreadsheets, run dynamic content…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Matik Webhooks](https://apis.io/asyncapis/matik/matik-webhooks/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [matik](https://apis.io/servers/matik/matik/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Matik Authentication](https://apis.io/security/matik/matik-authentication/)
+- [Matik Domain Security](https://apis.io/security/matik/matik-domain-security/)
+- [Matik Trust Center](https://apis.io/security/matik/matik-trust-center/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Matik Scopes](https://apis.io/scopes/matik/matik-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Matik Plans Pricing](https://apis.io/plans/matik/matik-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Matik Rate Limits](https://apis.io/rate-limits/matik/matik-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://matik.io)
+- [Documentation](https://developer.matik.io/docs/category/matik-api)
+- [Getting started](https://developer.matik.io/guides/quickstart)
+- [API reference](https://developer.matik.io/docs/matik/matik-external-api)
+- [Sign up](https://www.matik.io/request-demo)
+- [Support](https://help.matik.io)
+- [Blog](https://www.matik.io/blog)
+- [Compliance](https://www.matik.io/security)
+- [Terms of service](https://www.matik.io/terms)
+- [Privacy policy](https://www.matik.io/privacy)
+- [GitHub](https://github.com/matik-io)
+- [Status](https://status.matik.io)
+
+## API Evangelist rating
+
+**Kin Score 48.5** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 71.7 |
+| Contract quality | 39.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 26.3 |
+| Developer ergonomics | 63.7 |
+| Access clarity | 50.0 |
+
+**Agent readiness 29.5** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 36.4** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/matik/](https://apis.io/providers/matik/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Matik: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/matik/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
